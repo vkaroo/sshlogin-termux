@@ -31,8 +31,10 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq android-sdk android-sdk-platform-tools-common > /dev/null
 
-      - name: Accept licenses
+      - name: Accept licenses & install NDK (side-by-side)
         run: |
+          yes | sdkmanager --licenses > /dev/null 2>&1 || true
+          yes | sdkmanager "ndk;22.1.7171670" > /dev/null 2>&1 || true
           yes | sdkmanager --licenses > /dev/null 2>&1 || true
 
       - name: Apply minimal patches
