@@ -24,7 +24,7 @@
 
 ## 🚀 Quick Start
 
-1. Download `app-debug.apk` dari [GitHub Releases](https://github.com/xfile29/termux-ssh-minimal/releases) atau [Actions artifacts](https://github.com/xfile29/termux-ssh-minimal/actions).
+1. Download `app-debug.apk` dari [GitHub Releases](https://github.com/xfile29/sshlogin-termux/releases) atau [Actions artifacts](https://github.com/xfile29/sshlogin-termux/actions).
 2. Install di Android (enable "Unknown sources").
 3. Buka app → tap **+** → **New session** → pilih **SSH**.
 4. Masukkan:
@@ -46,8 +46,8 @@
 ### Manual build (local)
 
 ```bash
-git clone --recursive https://github.com/xfile29/termux-ssh-minimal.git
-cd termux-ssh-minimal
+git clone --recursive https://github.com/xfile29/sshlogin-termux.git
+cd sshlogin-termux
 ./scripts/build.sh
 # APK: termux-app/app/build/outputs/apk/debug/app-debug.apk
 ```
@@ -76,7 +76,7 @@ cd termux-ssh-minimal
 
 Project structure:
 ```
-termux-ssh-minimal/
+sshlogin-termux/
 ├── termux-app/          # Termux source (git submodule)
 ├── patches/
 │   ├── 01-minimal-manifest.patch   # strip unused activities
