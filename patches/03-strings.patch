@@ -5,6 +5,6 @@
      <string name="termux_session_name">Termux</string>
      <string name="termux_activity_label">Activity</string>
 -    <string name="app_name">Termux</string>
-+    <string name="app_name">VPS Connect</string>
++    <string name="app_name">SSHLogin</string>
      <string name="termux_name_short">VPS</string>
      <string name="termux_session_name">SSH</string>

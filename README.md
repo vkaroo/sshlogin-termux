@@ -1,4 +1,4 @@
-# VPS Connect — Minimal Termux SSH Client
+# SSHLogin — Minimal Termux SSH Client
 
 **SSH-only Termux build** — no package manager, no Python/Node/Go, no widget, no notification. Just terminal + SSH.
 
