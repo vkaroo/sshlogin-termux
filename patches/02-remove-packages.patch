@@ -1,0 +1,15 @@
+--- a/app/src/main/res/xml/termux_paths.xml
++++ b/app/src/main/res/xml/termux_paths.xml
+@@ -7,13 +7,6 @@
+     <files-path name="files" path="." />
+     <cache-path name="cache" path="." />
+     <external-path name="external" path="." />
+-    <external-files-path name="external_files" path="." />
+-    <external-cache-path name="external_cache" path="." />
+-    <root-path name="root" path="." />
+-
+-    <!-- Termux custom paths for packages removed for minimal build -->
+-    <files-path name="home" path="home" />
+-    <files-path name="apt" path="apt" />
+-    <files-path name="usr" path="usr" />
+ </paths>

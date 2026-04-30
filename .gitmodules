@@ -1,0 +1,4 @@
+[submodule "termux-app"]
+	path = termux-app
+	url = https://github.com/termux/termux-app.git
+	branch = master

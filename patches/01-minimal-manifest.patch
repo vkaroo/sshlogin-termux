@@ -1,0 +1,43 @@
+--- a/app/src/main/AndroidManifest.xml
++++ b/app/src/main/AndroidManifest.xml
+@@ -40,14 +40,6 @@
+     <activity android:name="com.termux.app.RunCommandActivity"
+         android:exported="false" />
+ 
+-    <activity android:name="com.termux.widget.WidgetConfigureActivity"
+-        android:exported="false">
+-        <intent-filter>
+-            <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+-        </intent-filter>
+-    </activity>
+-    <receiver android:name="com.termux.widget.TermuxWidgetProvider"
+-        android:exported="false">
+-        <intent-filter>
+-            <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+-        </intent-filter>
+-        <meta-data android:name="android.appwidget.provider"
+-            android:resource="@xml/widget_info" />
+-    </receiver>
+-
+     <!-- Termux:API plugin activities (keep minimal) -->
+     <activity android:name="com.termux.api.TermuxApiReceiver"
+         android:exported="true">
+@@ -71,20 +63,6 @@
+     </activity>
+ 
+-    <receiver android:name="com.termux.notification.TermuxNotificationReceiver"
+-        android:exported="false">
+-        <intent-filter>
+-            <action android:name="android.intent.action.BOOT_COMPLETED" />
+-        </intent-filter>
+-    </receiver>
+-
+-    <receiver android:name="com.termux.boot.TermuxBootReceiver"
+-        android:exported="false">
+-        <intent-filter>
+-            <action android:name="android.intent.action.BOOT_COMPLETED" />
+-        </intent-filter>
+-    </receiver-
+     <provider android:name="androidx.core.content.FileProvider"
+         android:authorities="${applicationId}.provider"
+         android:exported="false"

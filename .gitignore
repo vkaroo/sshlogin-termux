@@ -1,0 +1,20 @@
+termux-app/build/
+termux-app/.gradle/
+termux-app/app/build/
+*.apk
+*.log
+.idea/
+*.iml
+local.properties
+
+# Local release agent (contains token)
+autorelease.py
+autorelease.pid
+autorelease.log
+
+# Local release agent (contains token, never commit)
+autorelease.py
+autorelease.pid
+autorelease.log
+.git.bak/
+

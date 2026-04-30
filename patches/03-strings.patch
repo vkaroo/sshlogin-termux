@@ -1,0 +1,10 @@
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -4,7 +4,7 @@
+     <string name="termux_name_short">Termux</string>
+     <string name="termux_session_name">Termux</string>
+     <string name="termux_activity_label">Activity</string>
+-    <string name="app_name">Termux</string>
++    <string name="app_name">VPS Connect</string>
+     <string name="termux_name_short">VPS</string>
+     <string name="termux_session_name">SSH</string>
