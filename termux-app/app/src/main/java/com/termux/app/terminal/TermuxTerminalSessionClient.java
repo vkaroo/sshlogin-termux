@@ -1,4 +1,4 @@
-package com.termux.app.terminal;
+package com.sshlogin.app.app.terminal;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -12,20 +12,20 @@ import android.media.SoundPool;
 import android.text.TextUtils;
 import android.widget.ListView;
 
-import com.termux.R;
-import com.termux.shared.shell.TermuxSession;
-import com.termux.shared.interact.TextInputDialogUtils;
-import com.termux.shared.interact.ShareUtils;
-import com.termux.app.TermuxActivity;
-import com.termux.shared.terminal.TermuxTerminalSessionClientBase;
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.app.TermuxService;
-import com.termux.shared.settings.properties.TermuxPropertyConstants;
-import com.termux.shared.terminal.io.BellHandler;
-import com.termux.shared.logger.Logger;
-import com.termux.terminal.TerminalColors;
-import com.termux.terminal.TerminalSession;
-import com.termux.terminal.TextStyle;
+import com.sshlogin.app.R;
+import com.sshlogin.app.shared.shell.TermuxSession;
+import com.sshlogin.app.shared.interact.TextInputDialogUtils;
+import com.sshlogin.app.shared.interact.ShareUtils;
+import com.sshlogin.app.app.SSHLoginActivity;
+import com.sshlogin.app.shared.terminal.TermuxTerminalSessionClientBase;
+import com.sshlogin.app.shared.termux.TermuxConstants;
+import com.sshlogin.app.app.SSHLoginService;
+import com.sshlogin.app.shared.settings.properties.TermuxPropertyConstants;
+import com.sshlogin.app.shared.terminal.io.BellHandler;
+import com.sshlogin.app.shared.logger.Logger;
+import com.sshlogin.app.terminal.TerminalColors;
+import com.sshlogin.app.terminal.TerminalSession;
+import com.sshlogin.app.terminal.TextStyle;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,7 +34,7 @@ import java.util.Properties;
 
 public class TermuxTerminalSessionClient extends TermuxTerminalSessionClientBase {
 
-    private final TermuxActivity mActivity;
+    private final SSHLoginActivity mActivity;
 
     private static final int MAX_SESSIONS = 8;
 
@@ -44,7 +44,7 @@ public class TermuxTerminalSessionClient extends TermuxTerminalSessionClientBase
 
     private static final String LOG_TAG = "TermuxTerminalSessionClient";
 
-    public TermuxTerminalSessionClient(TermuxActivity activity) {
+    public TermuxTerminalSessionClient(SSHLoginActivity activity) {
         this.mActivity = activity;
     }
 
@@ -131,7 +131,7 @@ public class TermuxTerminalSessionClient extends TermuxTerminalSessionClientBase
 
     @Override
     public void onSessionFinished(final TerminalSession finishedSession) {
-        TermuxService service = mActivity.getTermuxService();
+        SSHLoginService service = mActivity.getTermuxService();
 
         if (service == null || service.wantsToStop()) {
             // The service wants to stop as soon as possible.
@@ -292,7 +292,7 @@ public class TermuxTerminalSessionClient extends TermuxTerminalSessionClientBase
     }
 
     public void switchToSession(boolean forward) {
-        TermuxService service = mActivity.getTermuxService();
+        SSHLoginService service = mActivity.getTermuxService();
         if (service == null) return;
 
         TerminalSession currentTerminalSession = mActivity.getCurrentSession();
@@ -310,7 +310,7 @@ public class TermuxTerminalSessionClient extends TermuxTerminalSessionClientBase
     }
 
     public void switchToSession(int index) {
-        TermuxService service = mActivity.getTermuxService();
+        SSHLoginService service = mActivity.getTermuxService();
         if (service == null) return;
 
         TermuxSession termuxSession = service.getTermuxSession(index);
@@ -329,7 +329,7 @@ public class TermuxTerminalSessionClient extends TermuxTerminalSessionClientBase
     }
 
     public void addNewSession(boolean isFailSafe, String sessionName) {
-        TermuxService service = mActivity.getTermuxService();
+        SSHLoginService service = mActivity.getTermuxService();
         if (service == null) return;
 
         if (service.getTermuxSessionsSize() >= MAX_SESSIONS) {
@@ -372,7 +372,7 @@ public class TermuxTerminalSessionClient extends TermuxTerminalSessionClientBase
             return stored;
         } else {
             // Else return the last session currently running
-            TermuxService service = mActivity.getTermuxService();
+            SSHLoginService service = mActivity.getTermuxService();
             if (service == null) return null;
 
             TermuxSession termuxSession = service.getLastTermuxSession();
@@ -391,7 +391,7 @@ public class TermuxTerminalSessionClient extends TermuxTerminalSessionClientBase
             return null;
 
         // Check if the session handle found matches one of the currently running sessions
-        TermuxService service = mActivity.getTermuxService();
+        SSHLoginService service = mActivity.getTermuxService();
         if (service == null) return null;
 
         return service.getTerminalSessionForHandle(sessionHandle);
@@ -399,7 +399,7 @@ public class TermuxTerminalSessionClient extends TermuxTerminalSessionClientBase
 
     public void removeFinishedSession(TerminalSession finishedSession) {
         // Return pressed with finished session - remove it.
-        TermuxService service = mActivity.getTermuxService();
+        SSHLoginService service = mActivity.getTermuxService();
         if (service == null) return;
 
         int index = service.removeTermuxSession(finishedSession);
@@ -424,7 +424,7 @@ public class TermuxTerminalSessionClient extends TermuxTerminalSessionClientBase
 
     public void checkAndScrollToSession(TerminalSession session) {
         if (!mActivity.isVisible()) return;
-        TermuxService service = mActivity.getTermuxService();
+        SSHLoginService service = mActivity.getTermuxService();
         if (service == null) return;
 
         final int indexOfSession = service.getIndexOfSession(session);
@@ -439,7 +439,7 @@ public class TermuxTerminalSessionClient extends TermuxTerminalSessionClientBase
 
 
     String toToastTitle(TerminalSession session) {
-        TermuxService service = mActivity.getTermuxService();
+        SSHLoginService service = mActivity.getTermuxService();
         if (service == null) return null;
 
         final int indexOfSession = service.getIndexOfSession(session);

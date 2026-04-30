@@ -1,4 +1,4 @@
-package com.termux.filepicker;
+package com.sshlogin.app.filepicker;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,15 +7,15 @@ import android.net.Uri;
 import android.provider.OpenableColumns;
 import android.util.Patterns;
 
-import com.termux.R;
-import com.termux.shared.data.DataUtils;
-import com.termux.shared.data.IntentUtils;
-import com.termux.shared.interact.MessageDialogUtils;
-import com.termux.shared.interact.TextInputDialogUtils;
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.TermuxConstants.TERMUX_APP.TERMUX_SERVICE;
-import com.termux.app.TermuxService;
-import com.termux.shared.logger.Logger;
+import com.sshlogin.app.R;
+import com.sshlogin.app.shared.data.DataUtils;
+import com.sshlogin.app.shared.data.IntentUtils;
+import com.sshlogin.app.shared.interact.MessageDialogUtils;
+import com.sshlogin.app.shared.interact.TextInputDialogUtils;
+import com.sshlogin.app.shared.termux.TermuxConstants;
+import com.sshlogin.app.shared.termux.TermuxConstants.TERMUX_APP.TERMUX_SERVICE;
+import com.sshlogin.app.app.SSHLoginService;
+import com.sshlogin.app.shared.logger.Logger;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -164,7 +164,7 @@ public class TermuxFileReceiverActivity extends Activity {
             final Uri scriptUri = new Uri.Builder().scheme("file").path(EDITOR_PROGRAM).build();
 
             Intent executeIntent = new Intent(TERMUX_SERVICE.ACTION_SERVICE_EXECUTE, scriptUri);
-            executeIntent.setClass(TermuxFileReceiverActivity.this, TermuxService.class);
+            executeIntent.setClass(TermuxFileReceiverActivity.this, SSHLoginService.class);
             executeIntent.putExtra(TERMUX_SERVICE.EXTRA_ARGUMENTS, new String[]{outFile.getAbsolutePath()});
             startService(executeIntent);
             finish();
@@ -174,7 +174,7 @@ public class TermuxFileReceiverActivity extends Activity {
 
                 Intent executeIntent = new Intent(TERMUX_SERVICE.ACTION_SERVICE_EXECUTE);
                 executeIntent.putExtra(TERMUX_SERVICE.EXTRA_WORKDIR, TERMUX_RECEIVEDIR);
-                executeIntent.setClass(TermuxFileReceiverActivity.this, TermuxService.class);
+                executeIntent.setClass(TermuxFileReceiverActivity.this, SSHLoginService.class);
                 startService(executeIntent);
                 finish();
             },
@@ -228,7 +228,7 @@ public class TermuxFileReceiverActivity extends Activity {
         final Uri urlOpenerProgramUri = new Uri.Builder().scheme("file").path(URL_OPENER_PROGRAM).build();
 
         Intent executeIntent = new Intent(TERMUX_SERVICE.ACTION_SERVICE_EXECUTE, urlOpenerProgramUri);
-        executeIntent.setClass(TermuxFileReceiverActivity.this, TermuxService.class);
+        executeIntent.setClass(TermuxFileReceiverActivity.this, SSHLoginService.class);
         executeIntent.putExtra(TERMUX_SERVICE.EXTRA_ARGUMENTS, new String[]{url});
         startService(executeIntent);
         finish();

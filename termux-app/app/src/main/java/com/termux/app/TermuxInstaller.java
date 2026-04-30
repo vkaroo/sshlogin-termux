@@ -1,4 +1,4 @@
-package com.termux.app;
+package com.sshlogin.app.app;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,20 +9,20 @@ import android.system.Os;
 import android.util.Pair;
 import android.view.WindowManager;
 
-import com.termux.R;
-import com.termux.app.utils.CrashUtils;
-import com.termux.shared.file.FileUtils;
-import com.termux.shared.file.TermuxFileUtils;
-import com.termux.shared.interact.MessageDialogUtils;
-import com.termux.shared.logger.Logger;
-import com.termux.shared.markdown.MarkdownUtils;
-import com.termux.shared.models.ExecutionCommand;
-import com.termux.shared.models.errors.Error;
-import com.termux.shared.packages.PackageUtils;
-import com.termux.shared.shell.TermuxShellEnvironmentClient;
-import com.termux.shared.shell.TermuxTask;
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.TermuxUtils;
+import com.sshlogin.app.R;
+import com.sshlogin.app.app.utils.CrashUtils;
+import com.sshlogin.app.shared.file.FileUtils;
+import com.sshlogin.app.shared.file.TermuxFileUtils;
+import com.sshlogin.app.shared.interact.MessageDialogUtils;
+import com.sshlogin.app.shared.logger.Logger;
+import com.sshlogin.app.shared.markdown.MarkdownUtils;
+import com.sshlogin.app.shared.models.ExecutionCommand;
+import com.sshlogin.app.shared.models.errors.Error;
+import com.sshlogin.app.shared.packages.PackageUtils;
+import com.sshlogin.app.shared.shell.TermuxShellEnvironmentClient;
+import com.sshlogin.app.shared.shell.TermuxTask;
+import com.sshlogin.app.shared.termux.TermuxConstants;
+import com.sshlogin.app.shared.termux.TermuxUtils;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -34,10 +34,10 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import static com.termux.shared.termux.TermuxConstants.TERMUX_PREFIX_DIR;
-import static com.termux.shared.termux.TermuxConstants.TERMUX_PREFIX_DIR_PATH;
-import static com.termux.shared.termux.TermuxConstants.TERMUX_STAGING_PREFIX_DIR;
-import static com.termux.shared.termux.TermuxConstants.TERMUX_STAGING_PREFIX_DIR_PATH;
+import static com.sshlogin.app.shared.termux.TermuxConstants.TERMUX_PREFIX_DIR;
+import static com.sshlogin.app.shared.termux.TermuxConstants.TERMUX_PREFIX_DIR_PATH;
+import static com.sshlogin.app.shared.termux.TermuxConstants.TERMUX_STAGING_PREFIX_DIR;
+import static com.sshlogin.app.shared.termux.TermuxConstants.TERMUX_STAGING_PREFIX_DIR_PATH;
 
 /**
  * Install the Termux bootstrap packages if necessary by following the below steps:

@@ -1,4 +1,4 @@
-package com.termux.app.activities;
+package com.sshlogin.app.app.activities;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,20 +10,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.termux.R;
-import com.termux.shared.activities.ReportActivity;
-import com.termux.shared.file.FileUtils;
-import com.termux.shared.models.ReportInfo;
-import com.termux.app.models.UserAction;
-import com.termux.shared.interact.ShareUtils;
-import com.termux.shared.packages.PackageUtils;
-import com.termux.shared.settings.preferences.TermuxAPIAppSharedPreferences;
-import com.termux.shared.settings.preferences.TermuxFloatAppSharedPreferences;
-import com.termux.shared.settings.preferences.TermuxTaskerAppSharedPreferences;
-import com.termux.shared.settings.preferences.TermuxWidgetAppSharedPreferences;
-import com.termux.shared.termux.AndroidUtils;
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.TermuxUtils;
+import com.sshlogin.app.R;
+import com.sshlogin.app.shared.activities.ReportActivity;
+import com.sshlogin.app.shared.file.FileUtils;
+import com.sshlogin.app.shared.models.ReportInfo;
+import com.sshlogin.app.app.models.UserAction;
+import com.sshlogin.app.shared.interact.ShareUtils;
+import com.sshlogin.app.shared.packages.PackageUtils;
+import com.sshlogin.app.shared.settings.preferences.TermuxAPIAppSharedPreferences;
+import com.sshlogin.app.shared.settings.preferences.TermuxFloatAppSharedPreferences;
+import com.sshlogin.app.shared.settings.preferences.TermuxTaskerAppSharedPreferences;
+import com.sshlogin.app.shared.settings.preferences.TermuxWidgetAppSharedPreferences;
+import com.sshlogin.app.shared.termux.AndroidUtils;
+import com.sshlogin.app.shared.termux.TermuxConstants;
+import com.sshlogin.app.shared.termux.TermuxUtils;
 
 public class SettingsActivity extends AppCompatActivity {
 

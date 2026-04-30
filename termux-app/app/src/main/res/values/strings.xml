@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!DOCTYPE resources [
-    <!ENTITY TERMUX_PACKAGE_NAME "com.termux">
-    <!ENTITY TERMUX_APP_NAME "Termux">
-    <!ENTITY TERMUX_API_APP_NAME "Termux:API">
-    <!ENTITY TERMUX_BOOT_APP_NAME "Termux:Boot">
-    <!ENTITY TERMUX_FLOAT_APP_NAME "Termux:Float">
-    <!ENTITY TERMUX_STYLING_APP_NAME "Termux:Styling">
-    <!ENTITY TERMUX_TASKER_APP_NAME "Termux:Tasker">
-    <!ENTITY TERMUX_WIDGET_APP_NAME "Termux:Widget">
+    <!ENTITY TERMUX_PACKAGE_NAME "com.sshlogin">
+    <!ENTITY TERMUX_APP_NAME "sshlogin">
+    <!ENTITY TERMUX_API_APP_NAME "sshlogin:API">
+    <!ENTITY TERMUX_BOOT_APP_NAME "sshlogin:Boot">
+    <!ENTITY TERMUX_FLOAT_APP_NAME "sshlogin:Float">
+    <!ENTITY TERMUX_STYLING_APP_NAME "sshlogin:Styling">
+    <!ENTITY TERMUX_TASKER_APP_NAME "sshlogin:Tasker">
+    <!ENTITY TERMUX_WIDGET_APP_NAME "sshlogin:Widget">
     ]>
 
 <resources>
@@ -18,14 +18,14 @@
 
 
 
-    <!-- Termux RUN_COMMAND permission -->
+    <!-- sshlogin RUN_COMMAND permission -->
     <string name="permission_run_command_label">Run commands in &TERMUX_APP_NAME; environment</string>
     <string name="permission_run_command_description">execute arbitrary commands within &TERMUX_APP_NAME;
         environment and access files</string>
 
 
 
-    <!-- Termux Bootstrap Packages Installation -->
+    <!-- sshlogin Bootstrap Packages Installation -->
     <string name="bootstrap_installer_body">Installing bootstrap packages…</string>
     <string name="bootstrap_error_title">Unable to install bootstrap</string>
     <string name="bootstrap_error_body">&TERMUX_APP_NAME; was unable to install the bootstrap packages.</string>
@@ -85,14 +85,14 @@
 
     <string name="action_report_issue">Report Issue</string>
     <string name="msg_generating_report">Generating Report</string>
-    <string name="msg_add_termux_debug_info">Add termux debug info to report?</string>
+    <string name="msg_add_termux_debug_info">Add sshlogin debug info to report?</string>
 
     <string name="error_styling_not_installed">The &TERMUX_STYLING_APP_NAME; Plugin App is not installed.</string>
     <string name="action_styling_install">Install</string>
 
 
 
-    <!-- Termux Notifications -->
+    <!-- sshlogin Notifications -->
     <string name="notification_action_exit">Exit</string>
     <string name="notification_action_wake_lock">Acquire wakelock</string>
     <string name="notification_action_wake_unlock">Release wakelock</string>
@@ -106,14 +106,14 @@
 
 
 
-    <!-- Termux RunCommandService -->
+    <!-- sshlogin RunCommandService -->
     <string name="error_run_command_service_invalid_intent_action">Invalid intent action to RunCommandService: `%1$s`</string>
     <string name="error_run_command_service_mandatory_extra_missing">Mandatory extra missing to RunCommandService: \"%1$s\"</string>
     <string name="error_run_command_service_api_help">Visit %1$s for more info on RUN_COMMAND Intent usage.</string>
 
 
 
-    <!-- Termux File Receiver -->
+    <!-- sshlogin File Receiver -->
     <string name="title_file_received">Save file in ~/downloads/</string>
     <string name="action_file_received_edit">Edit</string>
     <string name="action_file_received_open_directory">Open directory</string>
@@ -126,10 +126,10 @@
 
 
 
-    <!-- Termux Settings -->
+    <!-- sshlogin Settings -->
     <string name="title_activity_termux_settings">&TERMUX_APP_NAME; Settings</string>
 
-    <!-- Termux App Preferences -->
+    <!-- sshlogin App Preferences -->
     <string name="termux_preferences_title">&TERMUX_APP_NAME;</string>
     <string name="termux_preferences_summary">Preferences for &TERMUX_APP_NAME; app</string>
 
@@ -196,25 +196,25 @@
 
 
 
-    <!-- Termux:API App Preferences -->
+    <!-- sshlogin:API App Preferences -->
     <string name="termux_api_preferences_title">&TERMUX_API_APP_NAME;</string>
     <string name="termux_api_preferences_summary">Preferences for &TERMUX_API_APP_NAME; app</string>
 
 
 
-    <!-- Termux:Float App Preferences -->
+    <!-- sshlogin:Float App Preferences -->
     <string name="termux_float_preferences_title">&TERMUX_FLOAT_APP_NAME;</string>
     <string name="termux_float_preferences_summary">Preferences for &TERMUX_FLOAT_APP_NAME; app</string>
 
 
 
-    <!-- Termux:Tasker App Preferences -->
+    <!-- sshlogin:Tasker App Preferences -->
     <string name="termux_tasker_preferences_title">&TERMUX_TASKER_APP_NAME;</string>
     <string name="termux_tasker_preferences_summary">Preferences for &TERMUX_TASKER_APP_NAME; app</string>
 
 
 
-    <!-- Termux:Widget App Preferences -->
+    <!-- sshlogin:Widget App Preferences -->
     <string name="termux_widget_preferences_title">&TERMUX_WIDGET_APP_NAME;</string>
     <string name="termux_widget_preferences_summary">Preferences for &TERMUX_WIDGET_APP_NAME; app</string>
 

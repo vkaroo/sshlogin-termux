@@ -1,4 +1,4 @@
-package com.termux.app.fragments.settings.termux;
+package com.sshlogin.app.app.fragments.settings.termux;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import androidx.preference.PreferenceDataStore;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
-import com.termux.R;
-import com.termux.shared.settings.preferences.TermuxAppSharedPreferences;
+import com.sshlogin.app.R;
+import com.sshlogin.app.shared.settings.preferences.TermuxAppSharedPreferences;
 
 @Keep
 public class TerminalIOPreferencesFragment extends PreferenceFragmentCompat {

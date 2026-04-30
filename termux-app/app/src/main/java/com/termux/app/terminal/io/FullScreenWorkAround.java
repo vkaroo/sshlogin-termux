@@ -1,10 +1,10 @@
-package com.termux.app.terminal.io;
+package com.sshlogin.app.app.terminal.io;
 
 import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.termux.app.TermuxActivity;
+import com.sshlogin.app.app.SSHLoginActivity;
 
 /**
  * Work around for fullscreen mode in Termux to fix ExtraKeysView not being visible.
@@ -22,11 +22,11 @@ public class FullScreenWorkAround {
     private final int mNavBarHeight;
 
 
-    public static void apply(TermuxActivity activity) {
+    public static void apply(SSHLoginActivity activity) {
         new FullScreenWorkAround(activity);
     }
 
-    private FullScreenWorkAround(TermuxActivity activity) {
+    private FullScreenWorkAround(SSHLoginActivity activity) {
         ViewGroup content = activity.findViewById(android.R.id.content);
         mChildOfContent = content.getChildAt(0);
         mViewGroupLayoutParams = mChildOfContent.getLayoutParams();

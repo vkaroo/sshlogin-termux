@@ -1,4 +1,4 @@
-package com.termux.app;
+package com.sshlogin.app.app;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -9,25 +9,25 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 
-import com.termux.R;
-import com.termux.shared.data.DataUtils;
-import com.termux.shared.data.IntentUtils;
-import com.termux.shared.file.TermuxFileUtils;
-import com.termux.shared.file.filesystem.FileType;
-import com.termux.shared.models.errors.Errno;
-import com.termux.shared.models.errors.Error;
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.TermuxConstants.TERMUX_APP.RUN_COMMAND_SERVICE;
-import com.termux.shared.termux.TermuxConstants.TERMUX_APP.TERMUX_SERVICE;
-import com.termux.shared.file.FileUtils;
-import com.termux.shared.logger.Logger;
-import com.termux.shared.notification.NotificationUtils;
-import com.termux.app.utils.PluginUtils;
-import com.termux.shared.models.ExecutionCommand;
+import com.sshlogin.app.R;
+import com.sshlogin.app.shared.data.DataUtils;
+import com.sshlogin.app.shared.data.IntentUtils;
+import com.sshlogin.app.shared.file.TermuxFileUtils;
+import com.sshlogin.app.shared.file.filesystem.FileType;
+import com.sshlogin.app.shared.models.errors.Errno;
+import com.sshlogin.app.shared.models.errors.Error;
+import com.sshlogin.app.shared.termux.TermuxConstants;
+import com.sshlogin.app.shared.termux.TermuxConstants.TERMUX_APP.RUN_COMMAND_SERVICE;
+import com.sshlogin.app.shared.termux.TermuxConstants.TERMUX_APP.TERMUX_SERVICE;
+import com.sshlogin.app.shared.file.FileUtils;
+import com.sshlogin.app.shared.logger.Logger;
+import com.sshlogin.app.shared.notification.NotificationUtils;
+import com.sshlogin.app.app.utils.PluginUtils;
+import com.sshlogin.app.shared.models.ExecutionCommand;
 
 /**
  * A service that receives {@link RUN_COMMAND_SERVICE#ACTION_RUN_COMMAND} intent from third party apps and
- * plugins that contains info on command execution and forwards the extras to {@link TermuxService}
+ * plugins that contains info on command execution and forwards the extras to {@link SSHLoginService}
  * for the actual execution.
  *
  * Check https://github.com/termux/termux-app/wiki/RUN_COMMAND-Intent for more info.
@@ -191,7 +191,7 @@ public class RunCommandService extends Service {
 
         // Create execution intent with the action TERMUX_SERVICE#ACTION_SERVICE_EXECUTE to be sent to the TERMUX_SERVICE
         Intent execIntent = new Intent(TERMUX_SERVICE.ACTION_SERVICE_EXECUTE, executionCommand.executableUri);
-        execIntent.setClass(this, TermuxService.class);
+        execIntent.setClass(this, SSHLoginService.class);
         execIntent.putExtra(TERMUX_SERVICE.EXTRA_ARGUMENTS, executionCommand.arguments);
         execIntent.putExtra(TERMUX_SERVICE.EXTRA_STDIN, executionCommand.stdin);
         if (executionCommand.workingDirectory != null && !executionCommand.workingDirectory.isEmpty()) execIntent.putExtra(TERMUX_SERVICE.EXTRA_WORKDIR, executionCommand.workingDirectory);

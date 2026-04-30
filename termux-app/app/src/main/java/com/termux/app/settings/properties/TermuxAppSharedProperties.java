@@ -1,17 +1,17 @@
-package com.termux.app.settings.properties;
+package com.sshlogin.app.app.settings.properties;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import com.termux.app.terminal.io.KeyboardShortcut;
-import com.termux.shared.terminal.io.extrakeys.ExtraKeysConstants;
-import com.termux.shared.terminal.io.extrakeys.ExtraKeysConstants.EXTRA_KEY_DISPLAY_MAPS;
-import com.termux.shared.terminal.io.extrakeys.ExtraKeysInfo;
-import com.termux.shared.logger.Logger;
-import com.termux.shared.settings.properties.TermuxPropertyConstants;
-import com.termux.shared.settings.properties.TermuxSharedProperties;
-import com.termux.shared.termux.TermuxConstants;
+import com.sshlogin.app.app.terminal.io.KeyboardShortcut;
+import com.sshlogin.app.shared.terminal.io.extrakeys.ExtraKeysConstants;
+import com.sshlogin.app.shared.terminal.io.extrakeys.ExtraKeysConstants.EXTRA_KEY_DISPLAY_MAPS;
+import com.sshlogin.app.shared.terminal.io.extrakeys.ExtraKeysInfo;
+import com.sshlogin.app.shared.logger.Logger;
+import com.sshlogin.app.shared.settings.properties.TermuxPropertyConstants;
+import com.sshlogin.app.shared.settings.properties.TermuxSharedProperties;
+import com.sshlogin.app.shared.termux.TermuxConstants;
 
 import org.json.JSONException;
 

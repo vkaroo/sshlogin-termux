@@ -1,4 +1,4 @@
-package com.termux.app.utils;
+package com.sshlogin.app.app.utils;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,32 +8,32 @@ import android.os.Environment;
 
 import androidx.annotation.Nullable;
 
-import com.termux.R;
-import com.termux.shared.activities.ReportActivity;
-import com.termux.shared.file.FileUtils;
-import com.termux.shared.file.TermuxFileUtils;
-import com.termux.shared.models.ResultConfig;
-import com.termux.shared.models.ResultData;
-import com.termux.shared.models.errors.Errno;
-import com.termux.shared.models.errors.Error;
-import com.termux.shared.notification.NotificationUtils;
-import com.termux.shared.notification.TermuxNotificationUtils;
-import com.termux.shared.shell.ResultSender;
-import com.termux.shared.shell.ShellUtils;
-import com.termux.shared.termux.AndroidUtils;
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.TermuxConstants.TERMUX_APP.TERMUX_SERVICE;
-import com.termux.shared.logger.Logger;
-import com.termux.shared.settings.preferences.TermuxAppSharedPreferences;
-import com.termux.shared.settings.preferences.TermuxPreferenceConstants.TERMUX_APP;
-import com.termux.shared.settings.properties.SharedProperties;
-import com.termux.shared.settings.properties.TermuxPropertyConstants;
-import com.termux.shared.models.ReportInfo;
-import com.termux.shared.models.ExecutionCommand;
-import com.termux.app.models.UserAction;
-import com.termux.shared.data.DataUtils;
-import com.termux.shared.markdown.MarkdownUtils;
-import com.termux.shared.termux.TermuxUtils;
+import com.sshlogin.app.R;
+import com.sshlogin.app.shared.activities.ReportActivity;
+import com.sshlogin.app.shared.file.FileUtils;
+import com.sshlogin.app.shared.file.TermuxFileUtils;
+import com.sshlogin.app.shared.models.ResultConfig;
+import com.sshlogin.app.shared.models.ResultData;
+import com.sshlogin.app.shared.models.errors.Errno;
+import com.sshlogin.app.shared.models.errors.Error;
+import com.sshlogin.app.shared.notification.NotificationUtils;
+import com.sshlogin.app.shared.notification.TermuxNotificationUtils;
+import com.sshlogin.app.shared.shell.ResultSender;
+import com.sshlogin.app.shared.shell.ShellUtils;
+import com.sshlogin.app.shared.termux.AndroidUtils;
+import com.sshlogin.app.shared.termux.TermuxConstants;
+import com.sshlogin.app.shared.termux.TermuxConstants.TERMUX_APP.TERMUX_SERVICE;
+import com.sshlogin.app.shared.logger.Logger;
+import com.sshlogin.app.shared.settings.preferences.TermuxAppSharedPreferences;
+import com.sshlogin.app.shared.settings.preferences.TermuxPreferenceConstants.TERMUX_APP;
+import com.sshlogin.app.shared.settings.properties.SharedProperties;
+import com.sshlogin.app.shared.settings.properties.TermuxPropertyConstants;
+import com.sshlogin.app.shared.models.ReportInfo;
+import com.sshlogin.app.shared.models.ExecutionCommand;
+import com.sshlogin.app.app.models.UserAction;
+import com.sshlogin.app.shared.data.DataUtils;
+import com.sshlogin.app.shared.markdown.MarkdownUtils;
+import com.sshlogin.app.shared.termux.TermuxUtils;
 
 public class PluginUtils {
 

@@ -1,4 +1,4 @@
-package com.termux.app.terminal;
+package com.sshlogin.app.app.terminal;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -19,32 +19,32 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.termux.R;
-import com.termux.app.TermuxActivity;
-import com.termux.shared.data.UrlUtils;
-import com.termux.shared.file.FileUtils;
-import com.termux.shared.interact.MessageDialogUtils;
-import com.termux.shared.interact.ShareUtils;
-import com.termux.shared.shell.ShellUtils;
-import com.termux.shared.terminal.TermuxTerminalViewClientBase;
-import com.termux.shared.terminal.io.extrakeys.SpecialButton;
-import com.termux.shared.termux.AndroidUtils;
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.activities.ReportActivity;
-import com.termux.shared.models.ReportInfo;
-import com.termux.app.models.UserAction;
-import com.termux.app.terminal.io.KeyboardShortcut;
-import com.termux.shared.settings.properties.TermuxPropertyConstants;
-import com.termux.shared.data.DataUtils;
-import com.termux.shared.logger.Logger;
-import com.termux.shared.markdown.MarkdownUtils;
-import com.termux.shared.termux.TermuxUtils;
-import com.termux.shared.view.KeyboardUtils;
-import com.termux.shared.view.ViewUtils;
-import com.termux.terminal.KeyHandler;
-import com.termux.terminal.TerminalBuffer;
-import com.termux.terminal.TerminalEmulator;
-import com.termux.terminal.TerminalSession;
+import com.sshlogin.app.R;
+import com.sshlogin.app.app.SSHLoginActivity;
+import com.sshlogin.app.shared.data.UrlUtils;
+import com.sshlogin.app.shared.file.FileUtils;
+import com.sshlogin.app.shared.interact.MessageDialogUtils;
+import com.sshlogin.app.shared.interact.ShareUtils;
+import com.sshlogin.app.shared.shell.ShellUtils;
+import com.sshlogin.app.shared.terminal.TermuxTerminalViewClientBase;
+import com.sshlogin.app.shared.terminal.io.extrakeys.SpecialButton;
+import com.sshlogin.app.shared.termux.AndroidUtils;
+import com.sshlogin.app.shared.termux.TermuxConstants;
+import com.sshlogin.app.shared.activities.ReportActivity;
+import com.sshlogin.app.shared.models.ReportInfo;
+import com.sshlogin.app.app.models.UserAction;
+import com.sshlogin.app.app.terminal.io.KeyboardShortcut;
+import com.sshlogin.app.shared.settings.properties.TermuxPropertyConstants;
+import com.sshlogin.app.shared.data.DataUtils;
+import com.sshlogin.app.shared.logger.Logger;
+import com.sshlogin.app.shared.markdown.MarkdownUtils;
+import com.sshlogin.app.shared.termux.TermuxUtils;
+import com.sshlogin.app.shared.view.KeyboardUtils;
+import com.sshlogin.app.shared.view.ViewUtils;
+import com.sshlogin.app.terminal.KeyHandler;
+import com.sshlogin.app.terminal.TerminalBuffer;
+import com.sshlogin.app.terminal.TerminalEmulator;
+import com.sshlogin.app.terminal.TerminalSession;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -55,7 +55,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
 
-    final TermuxActivity mActivity;
+    final SSHLoginActivity mActivity;
 
     final TermuxTerminalSessionClient mTermuxTerminalSessionClient;
 
@@ -71,12 +71,12 @@ public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
 
     private static final String LOG_TAG = "TermuxTerminalViewClient";
 
-    public TermuxTerminalViewClient(TermuxActivity activity, TermuxTerminalSessionClient termuxTerminalSessionClient) {
+    public TermuxTerminalViewClient(SSHLoginActivity activity, TermuxTerminalSessionClient termuxTerminalSessionClient) {
         this.mActivity = activity;
         this.mTermuxTerminalSessionClient = termuxTerminalSessionClient;
     }
 
-    public TermuxActivity getActivity() {
+    public SSHLoginActivity getActivity() {
         return mActivity;
     }
 
@@ -115,7 +115,7 @@ public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
             // Start terminal cursor blinking if enabled
             // If emulator is already set, then start blinker now, otherwise wait for onEmulatorSet()
             // event to start it. This is needed since onEmulatorSet() may not be called after
-            // TermuxActivity is started after device display timeout with double tap and not power button.
+            // SSHLoginActivity is started after device display timeout with double tap and not power button.
             setTerminalCursorBlinkerState(true);
             mTerminalCursorBlinkerStateAlreadySet = true;
         }
@@ -141,16 +141,16 @@ public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
     }
 
     /**
-     * Should be called when {@link com.termux.view.TerminalView#mEmulator} is set
+     * Should be called when {@link com.sshlogin.app.view.TerminalView#mEmulator} is set
      */
     @Override
     public void onEmulatorSet() {
         if (!mTerminalCursorBlinkerStateAlreadySet) {
             // Start terminal cursor blinking if enabled
             // We need to wait for the first session to be attached that's set in
-            // TermuxActivity.onServiceConnected() and then the multiple calls to TerminalView.updateSize()
+            // SSHLoginActivity.onServiceConnected() and then the multiple calls to TerminalView.updateSize()
             // where the final one eventually sets the mEmulator when width/height is not 0. Otherwise
-            // blinker will not start again if TermuxActivity is started again after exiting it with
+            // blinker will not start again if SSHLoginActivity is started again after exiting it with
             // double back press. Check TerminalView.setTerminalCursorBlinkerState().
             setTerminalCursorBlinkerState(true);
             mTerminalCursorBlinkerStateAlreadySet = true;

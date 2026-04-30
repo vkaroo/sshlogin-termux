@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.termux"
+    package="com.sshlogin.app"
     android:installLocation="internalOnly"
     android:sharedUserId="${TERMUX_PACKAGE_NAME}"
     android:sharedUserLabel="@string/shared_user_label">
@@ -37,7 +37,7 @@
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
-        android:name=".app.TermuxApplication"
+        android:name=".app.SSHLoginApplication"
         android:allowBackup="false"
         android:banner="@drawable/banner"
         android:extractNativeLibs="true"
@@ -45,10 +45,10 @@
         android:label="@string/application_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
-        android:theme="@style/Theme.Termux">
+        android:theme="@style/Theme.SSHLogin">
 
         <activity
-            android:name=".app.TermuxActivity"
+            android:name=".app.SSHLoginActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout|uiMode|keyboard|keyboardHidden|navigation"
             android:label="@string/application_name"
             android:launchMode="singleTask"
@@ -71,7 +71,7 @@
 
         <activity-alias
             android:name=".HomeActivity"
-            android:targetActivity=".app.TermuxActivity">
+            android:targetActivity=".app.SSHLoginActivity">
 
             <!-- Launch activity automatically on boot on Android Things devices -->
             <intent-filter>
@@ -86,7 +86,7 @@
             android:name=".app.activities.HelpActivity"
             android:exported="false"
             android:label="@string/application_name"
-            android:parentActivityName=".app.TermuxActivity"
+            android:parentActivityName=".app.SSHLoginActivity"
             android:resizeableActivity="true"
             android:theme="@android:style/Theme.Material.Light.DarkActionBar" />
 
@@ -98,12 +98,12 @@
 
         <activity
             android:name=".shared.activities.ReportActivity"
-            android:theme="@style/Theme.AppCompat.TermuxReportActivity"
+            android:theme="@style/Theme.AppCompat.SSHLoginReportActivity"
             android:documentLaunchMode="intoExisting"
             />
 
         <activity
-            android:name=".filepicker.TermuxFileReceiverActivity"
+            android:name=".filepicker.SSHLoginFileReceiverActivity"
             android:excludeFromRecents="true"
             android:label="@string/application_name"
             android:noHistory="true"
@@ -124,7 +124,7 @@
                 <data android:mimeType="text/*" />
                 <data android:mimeType="video/*" />
             </intent-filter>
-            <!-- Accept multiple file types to let Termux be usable as generic file viewer. -->
+            <!-- Accept multiple file types to let SSHLogin be usable as generic file viewer. -->
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -140,7 +140,7 @@
 
 
         <provider
-            android:name=".filepicker.TermuxDocumentsProvider"
+            android:name=".filepicker.SSHLoginDocumentsProvider"
             android:authorities="${TERMUX_PACKAGE_NAME}.documents"
             android:exported="true"
             android:grantUriPermissions="true"
@@ -151,20 +151,20 @@
         </provider>
 
         <provider
-            android:name=".app.TermuxOpenReceiver$ContentProvider"
+            android:name=".app.SSHLoginOpenReceiver$ContentProvider"
             android:authorities="${TERMUX_PACKAGE_NAME}.files"
             android:exported="true"
             android:grantUriPermissions="true"
             android:permission="${TERMUX_PACKAGE_NAME}.permission.RUN_COMMAND" />
 
 
-        <receiver android:name=".app.TermuxOpenReceiver" android:exported="false" />
+        <receiver android:name=".app.SSHLoginOpenReceiver" android:exported="false" />
 
         <receiver android:name=".shared.activities.ReportActivity$ReportActivityBroadcastReceiver" android:exported="false" />
 
 
         <service
-            android:name=".app.TermuxService"
+            android:name=".app.SSHLoginService"
             android:exported="false" />
 
         <service

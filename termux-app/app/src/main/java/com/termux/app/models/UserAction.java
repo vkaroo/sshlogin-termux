@@ -1,4 +1,4 @@
-package com.termux.app.models;
+package com.sshlogin.app.app.models;
 
 public enum UserAction {
 

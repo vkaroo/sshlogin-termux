@@ -1,4 +1,4 @@
-package com.termux.app.terminal.io;
+package com.sshlogin.app.app.terminal.io;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,19 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.termux.R;
-import com.termux.app.TermuxActivity;
-import com.termux.shared.terminal.io.extrakeys.ExtraKeysView;
-import com.termux.terminal.TerminalSession;
+import com.sshlogin.app.R;
+import com.sshlogin.app.app.SSHLoginActivity;
+import com.sshlogin.app.shared.terminal.io.extrakeys.ExtraKeysView;
+import com.sshlogin.app.terminal.TerminalSession;
 
 public class TerminalToolbarViewPager {
 
     public static class PageAdapter extends PagerAdapter {
 
-        final TermuxActivity mActivity;
+        final SSHLoginActivity mActivity;
         String mSavedTextInput;
 
-        public PageAdapter(TermuxActivity activity, String savedTextInput) {
+        public PageAdapter(SSHLoginActivity activity, String savedTextInput) {
             this.mActivity = activity;
             this.mSavedTextInput = savedTextInput;
         }
@@ -94,10 +94,10 @@ public class TerminalToolbarViewPager {
 
     public static class OnPageChangeListener extends ViewPager.SimpleOnPageChangeListener {
 
-        final TermuxActivity mActivity;
+        final SSHLoginActivity mActivity;
         final ViewPager mTerminalToolbarViewPager;
 
-        public OnPageChangeListener(TermuxActivity activity, ViewPager viewPager) {
+        public OnPageChangeListener(SSHLoginActivity activity, ViewPager viewPager) {
             this.mActivity = activity;
             this.mTerminalToolbarViewPager = viewPager;
         }

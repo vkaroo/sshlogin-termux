@@ -1,4 +1,4 @@
-package com.termux.app.activities;
+package com.sshlogin.app.app.activities;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -12,7 +12,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.termux.shared.termux.TermuxConstants;
+import com.sshlogin.app.shared.termux.TermuxConstants;
 
 /** Basic embedded browser for viewing help pages. */
 public final class HelpActivity extends Activity {

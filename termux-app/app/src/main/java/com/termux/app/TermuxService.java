@@ -1,4 +1,4 @@
-package com.termux.app;
+package com.sshlogin.app.app;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -21,30 +21,30 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.Nullable;
 
-import com.termux.R;
-import com.termux.app.settings.properties.TermuxAppSharedProperties;
-import com.termux.app.terminal.TermuxTerminalSessionClient;
-import com.termux.app.utils.PluginUtils;
-import com.termux.shared.data.IntentUtils;
-import com.termux.shared.models.errors.Errno;
-import com.termux.shared.shell.ShellUtils;
-import com.termux.shared.shell.TermuxShellEnvironmentClient;
-import com.termux.shared.shell.TermuxShellUtils;
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.TermuxConstants.TERMUX_APP.TERMUX_ACTIVITY;
-import com.termux.shared.termux.TermuxConstants.TERMUX_APP.TERMUX_SERVICE;
-import com.termux.shared.settings.preferences.TermuxAppSharedPreferences;
-import com.termux.shared.shell.TermuxSession;
-import com.termux.shared.terminal.TermuxTerminalSessionClientBase;
-import com.termux.shared.logger.Logger;
-import com.termux.shared.notification.NotificationUtils;
-import com.termux.shared.packages.PermissionUtils;
-import com.termux.shared.data.DataUtils;
-import com.termux.shared.models.ExecutionCommand;
-import com.termux.shared.shell.TermuxTask;
-import com.termux.terminal.TerminalEmulator;
-import com.termux.terminal.TerminalSession;
-import com.termux.terminal.TerminalSessionClient;
+import com.sshlogin.app.R;
+import com.sshlogin.app.app.settings.properties.TermuxAppSharedProperties;
+import com.sshlogin.app.app.terminal.TermuxTerminalSessionClient;
+import com.sshlogin.app.app.utils.PluginUtils;
+import com.sshlogin.app.shared.data.IntentUtils;
+import com.sshlogin.app.shared.models.errors.Errno;
+import com.sshlogin.app.shared.shell.ShellUtils;
+import com.sshlogin.app.shared.shell.TermuxShellEnvironmentClient;
+import com.sshlogin.app.shared.shell.TermuxShellUtils;
+import com.sshlogin.app.shared.termux.TermuxConstants;
+import com.sshlogin.app.shared.termux.TermuxConstants.TERMUX_APP.TERMUX_ACTIVITY;
+import com.sshlogin.app.shared.termux.TermuxConstants.TERMUX_APP.TERMUX_SERVICE;
+import com.sshlogin.app.shared.settings.preferences.TermuxAppSharedPreferences;
+import com.sshlogin.app.shared.shell.TermuxSession;
+import com.sshlogin.app.shared.terminal.TermuxTerminalSessionClientBase;
+import com.sshlogin.app.shared.logger.Logger;
+import com.sshlogin.app.shared.notification.NotificationUtils;
+import com.sshlogin.app.shared.packages.PermissionUtils;
+import com.sshlogin.app.shared.data.DataUtils;
+import com.sshlogin.app.shared.models.ExecutionCommand;
+import com.sshlogin.app.shared.shell.TermuxTask;
+import com.sshlogin.app.terminal.TerminalEmulator;
+import com.sshlogin.app.terminal.TerminalSession;
+import com.sshlogin.app.terminal.TerminalSessionClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,9 +52,9 @@ import java.util.List;
 /**
  * A service holding a list of {@link TermuxSession} in {@link #mTermuxSessions} and background {@link TermuxTask}
  * in {@link #mTermuxTasks}, showing a foreground notification while running so that it is not terminated.
- * The user interacts with the session through {@link TermuxActivity}, but this service may outlive
+ * The user interacts with the session through {@link SSHLoginActivity}, but this service may outlive
  * the activity when the user or the system disposes of the activity. In that case the user may
- * restart {@link TermuxActivity} later to yet again access the sessions.
+ * restart {@link SSHLoginActivity} later to yet again access the sessions.
  * <p/>
  * In order to keep both terminal sessions and spawned processes (who may outlive the terminal sessions) alive as long
  * as wanted by the user this service is a foreground service, {@link Service#startForeground(int, Notification)}.
@@ -62,13 +62,13 @@ import java.util.List;
  * Optionally may hold a wake and a wifi lock, in which case that is shown in the notification - see
  * {@link #buildNotification()}.
  */
-public final class TermuxService extends Service implements TermuxTask.TermuxTaskClient, TermuxSession.TermuxSessionClient {
+public final class SSHLoginService extends Service implements TermuxTask.TermuxTaskClient, TermuxSession.TermuxSessionClient {
 
     private static int EXECUTION_ID = 1000;
 
     /** This service is only bound from inside the same process and never uses IPC. */
     class LocalBinder extends Binder {
-        public final TermuxService service = TermuxService.this;
+        public final SSHLoginService service = SSHLoginService.this;
     }
 
     private final IBinder mBinder = new LocalBinder();
@@ -77,7 +77,7 @@ public final class TermuxService extends Service implements TermuxTask.TermuxTas
 
     /**
      * The foreground TermuxSessions which this service manages.
-     * Note that this list is observed by {@link TermuxActivity#mTermuxSessionListViewController},
+     * Note that this list is observed by {@link SSHLoginActivity#mTermuxSessionListViewController},
      * so any changes must be made on the UI thread and followed by a call to
      * {@link ArrayAdapter#notifyDataSetChanged()} }.
      */
@@ -113,7 +113,7 @@ public final class TermuxService extends Service implements TermuxTask.TermuxTas
 
     public Integer mTerminalTranscriptRows;
 
-    private static final String LOG_TAG = "TermuxService";
+    private static final String LOG_TAG = "SSHLoginService";
 
     @Override
     public void onCreate() {
@@ -182,7 +182,7 @@ public final class TermuxService extends Service implements TermuxTask.TermuxTas
     public boolean onUnbind(Intent intent) {
         Logger.logVerbose(LOG_TAG, "onUnbind");
 
-        // Since we cannot rely on {@link TermuxActivity.onDestroy()} to always complete,
+        // Since we cannot rely on {@link SSHLoginActivity.onDestroy()} to always complete,
         // we unset clients here as well if it failed, so that we do not leave service and session
         // clients with references to the activity.
         if (mTermuxTerminalSessionClient != null)
@@ -244,7 +244,7 @@ public final class TermuxService extends Service implements TermuxTask.TermuxTas
      * Note that if don't kill the processes started by plugins which **expect** the result back
      * and notify their creators that they have been killed, then they may get stuck waiting for
      * the results forever like in case of commands started by Termux:Tasker or RUN_COMMAND intent,
-     * since once TermuxService has been killed, no result will be sent back. They may still get
+     * since once SSHLoginService has been killed, no result will be sent back. They may still get
      * stuck if termux app process gets killed, so for this case reasonable timeout values should
      * be used, like in Tasker for the Termux:Tasker actions.
      *
@@ -273,7 +273,7 @@ public final class TermuxService extends Service implements TermuxTask.TermuxTas
         for (int i = 0; i < pendingPluginExecutionCommands.size(); i++) {
             ExecutionCommand executionCommand = pendingPluginExecutionCommands.get(i);
             if (!executionCommand.shouldNotProcessResults() && executionCommand.isPluginExecutionCommandWithPendingResult()) {
-                if (executionCommand.setStateFailed(Errno.ERRNO_CANCELLED.getCode(), this.getString(com.termux.shared.R.string.error_execution_cancelled))) {
+                if (executionCommand.setStateFailed(Errno.ERRNO_CANCELLED.getCode(), this.getString(com.sshlogin.app.shared.R.string.error_execution_cancelled))) {
                     PluginUtils.processPluginExecutionCommandResult(this, LOG_TAG, executionCommand);
                 }
             }
@@ -549,7 +549,7 @@ public final class TermuxService extends Service implements TermuxTask.TermuxTas
             mTermuxTerminalSessionClient.termuxSessionListNotifyUpdated();
 
         updateNotification();
-        TermuxActivity.updateTermuxActivityStyling(this);
+        SSHLoginActivity.updateTermuxActivityStyling(this);
 
         return newTermuxSession;
     }
@@ -595,8 +595,8 @@ public final class TermuxService extends Service implements TermuxTask.TermuxTas
     }
 
     public void setTerminalTranscriptRows() {
-        // TermuxService only uses this termux property currently, so no need to load them all into
-        // an internal values map like TermuxActivity does
+        // SSHLoginService only uses this termux property currently, so no need to load them all into
+        // an internal values map like SSHLoginActivity does
         mTerminalTranscriptRows = TermuxAppSharedProperties.getTerminalTranscriptRows(this);
     }
 
@@ -636,13 +636,13 @@ public final class TermuxService extends Service implements TermuxTask.TermuxTas
         }
     }
 
-    /** Launch the {@link }TermuxActivity} to bring it to foreground. */
+    /** Launch the {@link }SSHLoginActivity} to bring it to foreground. */
     private void startTermuxActivity() {
         // For android >= 10, apps require Display over other apps permission to start foreground activities
         // from background (services). If it is not granted, then TermuxSessions that are started will
         // show in Termux notification but will not run until user manually clicks the notification.
         if (PermissionUtils.validateDisplayOverOtherAppsPermissionForPostAndroid10(this, true)) {
-            TermuxActivity.startTermuxActivity(this);
+            SSHLoginActivity.startTermuxActivity(this);
         } else {
             TermuxAppSharedPreferences preferences = TermuxAppSharedPreferences.build(this);
             if (preferences == null) return;
@@ -655,16 +655,16 @@ public final class TermuxService extends Service implements TermuxTask.TermuxTas
 
 
 
-    /** If {@link TermuxActivity} has not bound to the {@link TermuxService} yet or is destroyed, then
+    /** If {@link SSHLoginActivity} has not bound to the {@link SSHLoginService} yet or is destroyed, then
      * interface functions requiring the activity should not be available to the terminal sessions,
-     * so we just return the {@link #mTermuxTerminalSessionClientBase}. Once {@link TermuxActivity} bind
+     * so we just return the {@link #mTermuxTerminalSessionClientBase}. Once {@link SSHLoginActivity} bind
      * callback is received, it should call {@link #setTermuxTerminalSessionClient} to set the
-     * {@link TermuxService#mTermuxTerminalSessionClient} so that further terminal sessions are directly
+     * {@link SSHLoginService#mTermuxTerminalSessionClient} so that further terminal sessions are directly
      * passed the {@link TermuxTerminalSessionClient} object which fully implements the
      * {@link TerminalSessionClient} interface.
      *
-     * @return Returns the {@link TermuxTerminalSessionClient} if {@link TermuxActivity} has bound with
-     * {@link TermuxService}, otherwise {@link TermuxTerminalSessionClientBase}.
+     * @return Returns the {@link TermuxTerminalSessionClient} if {@link SSHLoginActivity} has bound with
+     * {@link SSHLoginService}, otherwise {@link TermuxTerminalSessionClientBase}.
      */
     public synchronized TermuxTerminalSessionClientBase getTermuxTerminalSessionClient() {
         if (mTermuxTerminalSessionClient != null)
@@ -673,8 +673,8 @@ public final class TermuxService extends Service implements TermuxTask.TermuxTas
             return mTermuxTerminalSessionClientBase;
     }
 
-    /** This should be called when {@link TermuxActivity#onServiceConnected} is called to set the
-     * {@link TermuxService#mTermuxTerminalSessionClient} variable and update the {@link TerminalSession}
+    /** This should be called when {@link SSHLoginActivity#onServiceConnected} is called to set the
+     * {@link SSHLoginService#mTermuxTerminalSessionClient} variable and update the {@link TerminalSession}
      * and {@link TerminalEmulator} clients in case they were passed {@link TermuxTerminalSessionClientBase}
      * earlier.
      *
@@ -688,8 +688,8 @@ public final class TermuxService extends Service implements TermuxTask.TermuxTas
             mTermuxSessions.get(i).getTerminalSession().updateTerminalSessionClient(mTermuxTerminalSessionClient);
     }
 
-    /** This should be called when {@link TermuxActivity} has been destroyed and in {@link #onUnbind(Intent)}
-     * so that the {@link TermuxService} and {@link TerminalSession} and {@link TerminalEmulator}
+    /** This should be called when {@link SSHLoginActivity} has been destroyed and in {@link #onUnbind(Intent)}
+     * so that the {@link SSHLoginService} and {@link TerminalSession} and {@link TerminalEmulator}
      * clients do not hold an activity references.
      */
     public synchronized void unsetTermuxTerminalSessionClient() {
@@ -707,7 +707,7 @@ public final class TermuxService extends Service implements TermuxTask.TermuxTas
         Resources res = getResources();
 
         // Set pending intent to be launched when notification is clicked
-        Intent notificationIntent = TermuxActivity.newInstance(this);
+        Intent notificationIntent = SSHLoginActivity.newInstance(this);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
 
@@ -750,13 +750,13 @@ public final class TermuxService extends Service implements TermuxTask.TermuxTas
 
 
         // Set Exit button action
-        Intent exitIntent = new Intent(this, TermuxService.class).setAction(TERMUX_SERVICE.ACTION_STOP_SERVICE);
+        Intent exitIntent = new Intent(this, SSHLoginService.class).setAction(TERMUX_SERVICE.ACTION_STOP_SERVICE);
         builder.addAction(android.R.drawable.ic_delete, res.getString(R.string.notification_action_exit), PendingIntent.getService(this, 0, exitIntent, 0));
 
 
         // Set Wakelock button actions
         String newWakeAction = wakeLockHeld ? TERMUX_SERVICE.ACTION_WAKE_UNLOCK : TERMUX_SERVICE.ACTION_WAKE_LOCK;
-        Intent toggleWakeLockIntent = new Intent(this, TermuxService.class).setAction(newWakeAction);
+        Intent toggleWakeLockIntent = new Intent(this, SSHLoginService.class).setAction(newWakeAction);
         String actionTitle = res.getString(wakeLockHeld ? R.string.notification_action_wake_unlock : R.string.notification_action_wake_lock);
         int actionIcon = wakeLockHeld ? android.R.drawable.ic_lock_idle_lock : android.R.drawable.ic_lock_lock;
         builder.addAction(actionIcon, actionTitle, PendingIntent.getService(this, 0, toggleWakeLockIntent, 0));

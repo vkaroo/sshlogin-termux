@@ -1,4 +1,4 @@
-package com.termux.app;
+package com.sshlogin.app.app;
 
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -13,10 +13,10 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.webkit.MimeTypeMap;
 
-import com.termux.app.utils.PluginUtils;
-import com.termux.shared.data.IntentUtils;
-import com.termux.shared.logger.Logger;
-import com.termux.shared.termux.TermuxConstants;
+import com.sshlogin.app.app.utils.PluginUtils;
+import com.sshlogin.app.shared.data.IntentUtils;
+import com.sshlogin.app.shared.logger.Logger;
+import com.sshlogin.app.shared.termux.TermuxConstants;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,9 +24,9 @@ import java.io.IOException;
 
 import androidx.annotation.NonNull;
 
-public class TermuxOpenReceiver extends BroadcastReceiver {
+public class SSHLoginOpenReceiver extends BroadcastReceiver {
 
-    private static final String LOG_TAG = "TermuxOpenReceiver";
+    private static final String LOG_TAG = "SSHLoginOpenReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {

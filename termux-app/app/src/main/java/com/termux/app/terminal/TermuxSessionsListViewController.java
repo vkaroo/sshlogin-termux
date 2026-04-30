@@ -1,4 +1,4 @@
-package com.termux.app.terminal;
+package com.sshlogin.app.app.terminal;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -18,21 +18,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import com.termux.R;
-import com.termux.app.TermuxActivity;
-import com.termux.shared.shell.TermuxSession;
-import com.termux.terminal.TerminalSession;
+import com.sshlogin.app.R;
+import com.sshlogin.app.app.SSHLoginActivity;
+import com.sshlogin.app.shared.shell.TermuxSession;
+import com.sshlogin.app.terminal.TerminalSession;
 
 import java.util.List;
 
 public class TermuxSessionsListViewController extends ArrayAdapter<TermuxSession> implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
-    final TermuxActivity mActivity;
+    final SSHLoginActivity mActivity;
 
     final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
     final StyleSpan italicSpan = new StyleSpan(Typeface.ITALIC);
 
-    public TermuxSessionsListViewController(TermuxActivity activity, List<TermuxSession> sessionList) {
+    public TermuxSessionsListViewController(SSHLoginActivity activity, List<TermuxSession> sessionList) {
         super(activity.getApplicationContext(), R.layout.item_terminal_sessions_list, sessionList);
         this.mActivity = activity;
     }

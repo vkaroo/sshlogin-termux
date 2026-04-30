@@ -1,13 +1,13 @@
-package com.termux.app;
+package com.sshlogin.app.app;
 
 import android.app.Application;
 
-import com.termux.shared.crash.TermuxCrashUtils;
-import com.termux.shared.settings.preferences.TermuxAppSharedPreferences;
-import com.termux.shared.logger.Logger;
+import com.sshlogin.app.shared.crash.TermuxCrashUtils;
+import com.sshlogin.app.shared.settings.preferences.TermuxAppSharedPreferences;
+import com.sshlogin.app.shared.logger.Logger;
 
 
-public class TermuxApplication extends Application {
+public class SSHLoginApplication extends Application {
     public void onCreate() {
         super.onCreate();
 

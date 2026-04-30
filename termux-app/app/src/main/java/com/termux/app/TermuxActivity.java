@@ -1,4 +1,4 @@
-package com.termux.app;
+package com.sshlogin.app.app;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -30,31 +30,31 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.termux.R;
-import com.termux.app.terminal.TermuxActivityRootView;
-import com.termux.shared.activities.ReportActivity;
-import com.termux.shared.packages.PermissionUtils;
-import com.termux.shared.data.DataUtils;
-import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.TermuxConstants.TERMUX_APP.TERMUX_ACTIVITY;
-import com.termux.app.activities.HelpActivity;
-import com.termux.app.activities.SettingsActivity;
-import com.termux.shared.settings.preferences.TermuxAppSharedPreferences;
-import com.termux.app.terminal.TermuxSessionsListViewController;
-import com.termux.app.terminal.io.TerminalToolbarViewPager;
-import com.termux.app.terminal.TermuxTerminalSessionClient;
-import com.termux.app.terminal.TermuxTerminalViewClient;
-import com.termux.shared.terminal.io.extrakeys.ExtraKeysView;
-import com.termux.app.settings.properties.TermuxAppSharedProperties;
-import com.termux.shared.interact.TextInputDialogUtils;
-import com.termux.shared.logger.Logger;
-import com.termux.shared.termux.TermuxUtils;
-import com.termux.shared.view.ViewUtils;
-import com.termux.terminal.TerminalSession;
-import com.termux.terminal.TerminalSessionClient;
-import com.termux.app.utils.CrashUtils;
-import com.termux.view.TerminalView;
-import com.termux.view.TerminalViewClient;
+import com.sshlogin.app.R;
+import com.sshlogin.app.app.terminal.TermuxActivityRootView;
+import com.sshlogin.app.shared.activities.ReportActivity;
+import com.sshlogin.app.shared.packages.PermissionUtils;
+import com.sshlogin.app.shared.data.DataUtils;
+import com.sshlogin.app.shared.termux.TermuxConstants;
+import com.sshlogin.app.shared.termux.TermuxConstants.TERMUX_APP.TERMUX_ACTIVITY;
+import com.sshlogin.app.app.activities.HelpActivity;
+import com.sshlogin.app.app.activities.SettingsActivity;
+import com.sshlogin.app.shared.settings.preferences.TermuxAppSharedPreferences;
+import com.sshlogin.app.app.terminal.TermuxSessionsListViewController;
+import com.sshlogin.app.app.terminal.io.TerminalToolbarViewPager;
+import com.sshlogin.app.app.terminal.TermuxTerminalSessionClient;
+import com.sshlogin.app.app.terminal.TermuxTerminalViewClient;
+import com.sshlogin.app.shared.terminal.io.extrakeys.ExtraKeysView;
+import com.sshlogin.app.app.settings.properties.TermuxAppSharedProperties;
+import com.sshlogin.app.shared.interact.TextInputDialogUtils;
+import com.sshlogin.app.shared.logger.Logger;
+import com.sshlogin.app.shared.termux.TermuxUtils;
+import com.sshlogin.app.shared.view.ViewUtils;
+import com.sshlogin.app.terminal.TerminalSession;
+import com.sshlogin.app.terminal.TerminalSessionClient;
+import com.sshlogin.app.app.utils.CrashUtils;
+import com.sshlogin.app.view.TerminalView;
+import com.sshlogin.app.view.TerminalViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,29 +72,29 @@ import androidx.viewpager.widget.ViewPager;
  * </ul>
  * about memory leaks.
  */
-public final class TermuxActivity extends Activity implements ServiceConnection {
+public final class SSHLoginActivity extends Activity implements ServiceConnection {
 
     /**
-     * The connection to the {@link TermuxService}. Requested in {@link #onCreate(Bundle)} with a call to
+     * The connection to the {@link SSHLoginService}. Requested in {@link #onCreate(Bundle)} with a call to
      * {@link #bindService(Intent, ServiceConnection, int)}, and obtained and stored in
      * {@link #onServiceConnected(ComponentName, IBinder)}.
      */
-    TermuxService mTermuxService;
+    SSHLoginService mTermuxService;
 
     /**
-     * The {@link TerminalView} shown in  {@link TermuxActivity} that displays the terminal.
+     * The {@link TerminalView} shown in  {@link SSHLoginActivity} that displays the terminal.
      */
     TerminalView mTerminalView;
 
     /**
      *  The {@link TerminalViewClient} interface implementation to allow for communication between
-     *  {@link TerminalView} and {@link TermuxActivity}.
+     *  {@link TerminalView} and {@link SSHLoginActivity}.
      */
     TermuxTerminalViewClient mTermuxTerminalViewClient;
 
     /**
      *  The {@link TerminalSessionClient} interface implementation to allow for communication between
-     *  {@link TerminalSession} and {@link TermuxActivity}.
+     *  {@link TerminalSession} and {@link SSHLoginActivity}.
      */
     TermuxTerminalSessionClient mTermuxTerminalSessionClient;
 
@@ -109,12 +109,12 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
     private TermuxAppSharedProperties mProperties;
 
     /**
-     * The root view of the {@link TermuxActivity}.
+     * The root view of the {@link SSHLoginActivity}.
      */
     TermuxActivityRootView mTermuxActivityRootView;
 
     /**
-     * The space at the bottom of {@link @mTermuxActivityRootView} of the {@link TermuxActivity}.
+     * The space at the bottom of {@link @mTermuxActivityRootView} of the {@link SSHLoginActivity}.
      */
     View mTermuxActivityBottomSpaceView;
 
@@ -129,7 +129,7 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
     TermuxSessionsListViewController mTermuxSessionListViewController;
 
     /**
-     * The {@link TermuxActivity} broadcast receiver for various things like terminal style configuration changes.
+     * The {@link SSHLoginActivity} broadcast receiver for various things like terminal style configuration changes.
      */
     private final BroadcastReceiver mTermuxActivityBroadcastReceiver = new TermuxActivityBroadcastReceiver();
 
@@ -150,7 +150,7 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
     private boolean isOnResumeAfterOnCreate = false;
 
     /**
-     * The {@link TermuxActivity} is in an invalid state and must not be run.
+     * The {@link SSHLoginActivity} is in an invalid state and must not be run.
      */
     private boolean mIsInvalidState;
 
@@ -174,7 +174,7 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
 
     private static final String ARG_TERMINAL_TOOLBAR_TEXT_INPUT = "terminal_toolbar_text_input";
 
-    private static final String LOG_TAG = "TermuxActivity";
+    private static final String LOG_TAG = "SSHLoginActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -238,8 +238,8 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
 
         registerForContextMenu(mTerminalView);
 
-        // Start the {@link TermuxService} and make it run regardless of who is bound to it
-        Intent serviceIntent = new Intent(this, TermuxService.class);
+        // Start the {@link SSHLoginService} and make it run regardless of who is bound to it
+        Intent serviceIntent = new Intent(this, SSHLoginService.class);
         startService(serviceIntent);
 
         // Attempt to bind to the service, this will call the {@link #onServiceConnected(ComponentName, IBinder)}
@@ -354,13 +354,13 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
 
         Logger.logDebug(LOG_TAG, "onServiceConnected");
 
-        mTermuxService = ((TermuxService.LocalBinder) service).service;
+        mTermuxService = ((SSHLoginService.LocalBinder) service).service;
 
         setTermuxSessionsListView();
 
         if (mTermuxService.isTermuxSessionsEmpty()) {
             if (mIsVisible) {
-                TermuxInstaller.setupBootstrapIfNeeded(TermuxActivity.this, () -> {
+                TermuxInstaller.setupBootstrapIfNeeded(SSHLoginActivity.this, () -> {
                     if (mTermuxService == null) return; // Activity might have been destroyed.
                     try {
                         Bundle bundle = getIntent().getExtras();
@@ -397,7 +397,7 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
 
         Logger.logDebug(LOG_TAG, "onServiceDisconnected");
 
-        // Respect being stopped from the {@link TermuxService} notification action.
+        // Respect being stopped from the {@link SSHLoginService} notification action.
         finishActivityIfNotFinishing();
     }
 
@@ -531,7 +531,7 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
         View newSessionButton = findViewById(R.id.new_session_button);
         newSessionButton.setOnClickListener(v -> mTermuxTerminalSessionClient.addNewSession(false, null));
         newSessionButton.setOnLongClickListener(v -> {
-            TextInputDialogUtils.textInput(TermuxActivity.this, R.string.title_create_named_session, null,
+            TextInputDialogUtils.textInput(SSHLoginActivity.this, R.string.title_create_named_session, null,
                 R.string.action_create_named_session_confirm, text -> mTermuxTerminalSessionClient.addNewSession(false, text),
                 R.string.action_new_session_failsafe, text -> mTermuxTerminalSessionClient.addNewSession(true, text),
                 -1, null, null);
@@ -567,7 +567,7 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
 
     public void finishActivityIfNotFinishing() {
         // prevent duplicate calls to finish() if called from multiple places
-        if (!TermuxActivity.this.isFinishing()) {
+        if (!SSHLoginActivity.this.isFinishing()) {
             finish();
         }
     }
@@ -576,7 +576,7 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
     public void showToast(String text, boolean longDuration) {
         if (text == null || text.isEmpty()) return;
         if (mLastToast != null) mLastToast.cancel();
-        mLastToast = Toast.makeText(TermuxActivity.this, text, longDuration ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT);
+        mLastToast = Toast.makeText(SSHLoginActivity.this, text, longDuration ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT);
         mLastToast.setGravity(Gravity.TOP, 0, 0);
         mLastToast.show();
     }
@@ -792,7 +792,7 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
 
 
 
-    public TermuxService getTermuxService() {
+    public SSHLoginService getTermuxService() {
         return mTermuxService;
     }
 
@@ -867,7 +867,7 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
                     case TERMUX_ACTIVITY.ACTION_REQUEST_PERMISSIONS:
                         Logger.logDebug(LOG_TAG, "Received intent to request storage permissions");
                         if (ensureStoragePermissionGranted())
-                            TermuxInstaller.setupStorageSymlinks(TermuxActivity.this);
+                            TermuxInstaller.setupStorageSymlinks(SSHLoginActivity.this);
                         return;
                     case TERMUX_ACTIVITY.ACTION_RELOAD_STYLE:
                         Logger.logDebug(LOG_TAG, "Received intent to reload styling");
@@ -907,7 +907,7 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
         // views will be destroyed and bindService() will be called again. Extra keys input
         // text will we restored since that has already been implemented. Terminal sessions
         // and transcripts are also already preserved. Theme does change properly too.
-        // TermuxActivity.this.recreate();
+        // SSHLoginActivity.this.recreate();
     }
 
 
@@ -917,7 +917,7 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
     }
 
     public static Intent newInstance(@NonNull final Context context) {
-        Intent intent = new Intent(context, TermuxActivity.class);
+        Intent intent = new Intent(context, SSHLoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
     }
